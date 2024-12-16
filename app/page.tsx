@@ -27,7 +27,7 @@ const Home = () => {
     <div className="px-5">
       <div className="space-y-4">
         <h2 className="font-semibold">Available Courses</h2>
-        <div className="flex flex-col gap-4 border-2 rounded-xl px-3 py-4">
+        <div className="flex flex-col gap-4 border-2 rounded-xl px-12 py-6 max-sm:px-5 max-sm:py-5">
           {courses.map(
             (item) =>
               !item.selected && (
@@ -36,17 +36,19 @@ const Home = () => {
           )}
         </div>
       </div>
-      <div className="space-y-4 mt-4">
-        <h2 className="font-semibold">Selected Courses</h2>
-        <div className="flex flex-col gap-4 border-2 rounded-xl px-3 py-4">
-          {courses.map(
-            (item) =>
-              item.selected && (
-                <CourseItem key={item.id} name={item.name} type="selected" />
-              )
-          )}
+      {courses.filter((item) => item.selected === true).length !== 0 && (
+        <div className="space-y-4 mt-4">
+          <h2 className="font-semibold">Selected Courses</h2>
+          <div className="flex flex-col gap-4 border-2 rounded-xl px-12 py-6 max-sm:px-5 max-sm:py-5">
+            {courses.map(
+              (item) =>
+                item.selected && (
+                  <CourseItem key={item.id} name={item.name} type="selected" />
+                )
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
