@@ -23,10 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <nav className="w-screen text-center py-4">
+          <h1 className="text-xl font-bold">CourseMate</h1>
+        </nav>
         {children}
       </body>
     </html>
