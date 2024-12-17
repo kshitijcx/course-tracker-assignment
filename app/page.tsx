@@ -45,6 +45,8 @@ const Home = async () => {
                       id={item.id}
                       name={item.name}
                       type="selected"
+                      score={item.score}
+                      progress={item.progress}
                     />
                   )
               )}

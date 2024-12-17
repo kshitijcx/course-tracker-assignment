@@ -10,18 +10,21 @@ const CourseItem = ({
   id,
   name,
   type,
+  score,
+  progress,
 }: {
   id: number;
   name: string;
   type: string;
+  score: number;
+  progress: number;
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handleAdd = async (id: number) => {
     setLoading(true);
-    const data = { id };
-    const response = await axios.post("http://localhost:3000/api/", { id });
+    await axios.post("http://localhost:3000/api/", { id });
     setLoading(false);
     router.refresh();
   };
@@ -40,7 +43,8 @@ const CourseItem = ({
       <div className="flex justify-between text-sm items-center">
         <h2 className="text-sm">{name}</h2>
         <div className="flex gap-3 items-center">
-          <p>10%</p>
+          <p>{progress/5*100}%</p>
+          <p>{score ? `${score}/5` : "0/5"}</p>
           <Link href={`/course/${id}`}>
             <Button>View</Button>
           </Link>

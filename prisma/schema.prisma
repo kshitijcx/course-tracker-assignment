@@ -23,7 +23,7 @@ model Course {
 
 type ansStr {
   id     Int
-  answer String
+  option String
 }
 
 model Answer {
