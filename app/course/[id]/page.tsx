@@ -3,9 +3,12 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 
 const CoursePage = ({ params }) => {
+  const router = useRouter();
+
   const [questions, setQuestions] = useState("");
   const [selectedAnswers, setSelectedAnswers] = useState<
     { id: number; option: string }[]
@@ -47,14 +50,15 @@ const CoursePage = ({ params }) => {
         marks++;
       }
     });
-  
+
     const progress = selectedAnswers.length;
     const data = {
       selectedAnswers,
-      score:marks,
+      score: marks,
       progress,
     };
     await axios.post(`http://localhost:3000/api/course/${id}`, data);
+    router.push("/");
   };
 
   if (questions) {
@@ -72,7 +76,10 @@ const CoursePage = ({ params }) => {
                   <RadioGroupItem
                     value={answer}
                     id={answer}
-                    checked={selectedAnswers && answer === selectedAnswers[item.id]?.option}
+                    checked={
+                      selectedAnswers &&
+                      answer === selectedAnswers[item.id]?.option
+                    }
                   />
                   <label>{answer}</label>
                 </div>
