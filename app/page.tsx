@@ -10,7 +10,6 @@ const Home = async () => {
   };
 
   const courses = await fetchCourses();
-  console.log(courses);
 
   return (
     <Suspense>

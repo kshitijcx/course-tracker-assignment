@@ -16,7 +16,7 @@ datasource db {
 model Course {
   id       Int     @id @map("_id")
   name     String
-  selected  Boolean @default(false)
+  selected Boolean @default(false)
   progress Int     @default(0)
   score    Int?
 }
@@ -26,7 +26,19 @@ type ansStr {
   answer String
 }
 
-model Answers {
+model Answer {
   id      Int      @id @map("_id")
   answers ansStr[]
+}
+
+type quesStr {
+  id       Int
+  question String
+  answers  String[]
+  correct  String
+}
+
+model Question {
+  id        Int       @id @map("_id")
+  questions quesStr[]
 }

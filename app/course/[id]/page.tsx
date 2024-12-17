@@ -1,66 +1,25 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
+import axios from "axios";
+import { use, useEffect, useState } from "react";
 
-const questions = [
-  {
-    id: 0,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 1,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 2,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 3,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 4,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 5,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 6,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 7,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "4",
-  },
-  {
-    id: 8,
-    question: "What is 2+2?",
-    answers: ["1", "2", "3", "4"],
-    correct: "3",
-  },
-];
+const CoursePage = ({ params }) => {
+  const [questionsObj, setQuestionsObj] = useState(null);
+  const { id } = use(params);
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      const response = await axios.get(
+        `http://localhost:3000/api/course/${id}`
+      );
+      const data = await response.data;
+      setQuestionsObj(data);
+    };
+    fetchQuestions();
+  }, []);
 
-const CoursePage = ({ params }: { params: { id: string } }) => {
+  const questions = questionsObj?.questions;
+
   const [selectedAnswers, setSelectedAnswers] = useState<
     { id: number; option: string }[]
   >([]);
@@ -93,7 +52,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="px-4 flex flex-col gap-4 pb-4 mx-auto">
-      {questions.map((item, index) => (
+      {questions?.map((item, index) => (
         <div key={index} className="border-2 rounded-xl px-3 py-4">
           <h1>{item.question}</h1>
           <RadioGroup
